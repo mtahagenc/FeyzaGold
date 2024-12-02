@@ -7,15 +7,20 @@
 
 import SwiftUI
 
+extension View {
+    func toAnyView() -> AnyView {
+        AnyView(self)
+    }
+}
+
 struct ContentView: View {
+    
+    @State private var showLoading :Bool = false
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            WebView(url: URL(string: "https:feyzagold.com")!, showLoading: $showLoading)
+                .overlay(showLoading ? ProgressView("Yukleniyor...").toAnyView(): EmptyView().toAnyView())
         }
-        .padding()
     }
 }
 
